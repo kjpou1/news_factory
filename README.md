@@ -146,7 +146,7 @@ deactivate
 To run the script and clear the directory before running:
 
 ```bash
-python run_async.py --impact-classes orange,red,gray --time-period 'this week' --nnfx --output-folder '/path/to/output/folder' --custom-nnfx-filters 'path/to/nnfx_filters.json' --custom-calendar-template 'path/to/calendar_template.html'
+./daily_run.sh --output-folder "/path/to/output/folder" --clear
 ```
 
 To run the script without clearing the directory, this will overwrite the files that are already generated:
