@@ -43,9 +43,14 @@ Options are also available to filter by [No Nonsense Forex](https://nononsensefo
 
 4.  **Install playwrite** 
 
-    ```bash
-    playwrite --install
-    ```
+╔════════════════════════════════════════════════════════════╗
+║ Looks like Playwright was just installed or updated.       ║
+║ Please run the following command to download new browsers: ║
+║                                                            ║
+║     playwright install                                     ║
+║                                                            ║
+║ <3 Playwright Team                                         ║
+╚════════════════════════════════════════════════════════════╝
 
 5. **Set environment file**
 
