@@ -42,7 +42,7 @@ Options are also available to filter by [No Nonsense Forex](https://nononsensefo
     ```
 
 4.  **Install playwrite** 
-
+<pre>
 ╔════════════════════════════════════════════════════════════╗
 ║ Looks like Playwright was just installed or updated.       ║
 ║ Please run the following command to download new browsers: ║
@@ -51,7 +51,7 @@ Options are also available to filter by [No Nonsense Forex](https://nononsensefo
 ║                                                            ║
 ║ <3 Playwright Team                                         ║
 ╚════════════════════════════════════════════════════════════╝
-
+</pre>
 5. **Set environment file**
 
     Copy or rename the `example_env` file to `.env` before running
