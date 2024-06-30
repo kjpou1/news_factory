@@ -2,6 +2,8 @@
 
 This Python library retrieves calendar event data from Forex Factory for specific time periods. The information is saved in both JSON and HTML formats for further analysis and personal use.
 
+Options are also available to filter by [No Nonsense Forex](https://nononsenseforex.com/forex-basics/forex-news-trading/) rules.
+
 ## Table of Contents
 
 - [NEWS FACTORY](#news-factory)
@@ -62,7 +64,7 @@ To run the library, use the provided `run_async.py` script with appropriate comm
 - `--currencies, -c`: Comma-separated list of currencies (AUD, CAD, CHF, EUR, GBP, JPY, NZD, USD)
 - `--time-period, -t`: Time period (Tomorrow, Next Week, Next Month, Today, This Week, This Month, Yesterday, Last Week, Last Month)
 - `--output-folder, -o`: Folder where the output files will be saved (default: current directory)
-- `--nnfx, -n`: Boolean switch that is true if specified and false if not
+- `--nnfx, -n`: Boolean switch that will filter event data specific to nnfx method
 - `--custom-nnfx-filters, -f`: Path to a custom NNFX filters JSON file
 - `--custom-calendar-template, -m`: Path to a custom calendar template file
 
@@ -74,7 +76,6 @@ To retrieve and process data for today and save it in the specified output folde
 python run_async.py --impact-classes orange,red,gray --time-period 'today' --nnfx --output-folder '/path/to/output/folder'
 ```
 
-
 To use a custom NNFX filters file and a custom calendar template:
 
 ```bash
@@ -82,6 +83,8 @@ python run_async.py --impact-classes orange,red,gray --time-period 'this week' -
 ```
 
 Note: See `resources` directory of the repo source to see what can be modified.
+
+--nnfx switch follows the [No Nonsense Forex](https://nononsenseforex.com/forex-basics/forex-news-trading/) news events filtering.
 
 ## Configuration
 

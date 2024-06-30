@@ -43,7 +43,7 @@ class CommandLine:
         parser.add_argument(
             '--nnfx',
             action='store_true',
-            help='Boolean switch that is true if specified and false if not'
+            help='Boolean switch that will filter event data specific to nnfx method'
         )
 
         parser.add_argument(
