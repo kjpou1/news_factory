@@ -74,6 +74,12 @@ To run the library, use the provided `run_async.py` script with appropriate comm
 - `--custom-nnfx-filters, -f`: Path to a custom NNFX filters JSON file
 - `--custom-calendar-template, -m`: Path to a custom calendar template file
 
+> [!NOTE]
+> `--nnfx` switch follows the [No Nonsense Forex](https://nononsenseforex.com/forex-basics/forex-news-trading/) news events filtering.
+
+> [!TIP]
+> See [resources](./resources) directory of the repo source to see what can be modified.
+
 ### Examples
 
 To retrieve and process data for today and save it in the specified output folder:
@@ -95,9 +101,7 @@ To use a custom NNFX filters file and a custom calendar template:
 python run_async.py --impact-classes orange,red,gray --time-period 'this week' --nnfx --output-folder '/path/to/output/folder' --custom-nnfx-filters 'path/to/nnfx_filters.json' --custom-calendar-template 'path/to/calendar_template.html'
 ```
 
-Note: See `resources` directory of the repo source to see what can be modified.
 
---nnfx switch follows the [No Nonsense Forex](https://nononsenseforex.com/forex-basics/forex-news-trading/) news events filtering.
 
 ## Configuration
 
@@ -112,7 +116,8 @@ NNFX_FILTERS=nnfx_filters.json
 CALENDAR_TEMPLATE=calendar_template.html
 ```
 
-Note: An example_env file is provided to get started.  Copy the file to `.env` before running:
+> [!NOTE]
+> An `example_env` file is provided to get started.  Copy the file to `.env` before running:
 
 ## Shell Script
 
@@ -177,9 +182,8 @@ This project is licensed under the MIT License. See the `LICENSE` file for detai
 
 
 ## Disclaimer
-
-This project uses web scraping to retrieve data from a commercial website. Please be aware of the following:
-
-* Respect the Website's Terms of Service: Ensure that your usage of this tool complies with the websites terms of service. Frequent scraping can put undue load on their servers.
-* Responsible Usage: Use this tool responsibly to avoid disrupting the services provided by Forex Factory.
-* Legal Considerations: Be aware of the legal implications of web scraping. This tool is provided for personal use and educational purposes only.
+> [!CAUTION]
+> This project uses web scraping to retrieve data from a commercial website. Please be aware of the following:
+> * Respect the Website's Terms of Service: Ensure that your usage of this tool complies with the websites terms of service. Frequent scraping can put undue load on their servers.
+> * Responsible Usage: Use this tool responsibly to avoid disrupting the services provided by Forex Factory.
+> * Legal Considerations: Be aware of the legal implications of web scraping. This tool is provided for personal use and educational purposes only.
