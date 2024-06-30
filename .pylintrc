@@ -1,0 +1,7 @@
+[MASTER]
+disable=missing-module-docstring,
+        missing-class-docstring,
+        missing-function-docstring,
+        line-too-long,
+        broad-except
+ignored-modules=talib

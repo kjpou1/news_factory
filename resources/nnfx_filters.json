@@ -1,0 +1,54 @@
+{
+  "AUD": [
+    "gdp",
+    "employment change",
+    "interest",
+    "rba rate statement",
+    "bank holiday"
+  ],
+  "CAD": [
+    "boc rate statement",
+    "cpi",
+    "employment",
+    "retail sales",
+    "bank holiday"
+  ],
+  "CHF": [
+    "libor",
+    "london interbank offered rate",
+    "bank holiday"
+  ],
+  "EUR": [
+    "lagarde",
+    "draghi",
+    "interest",
+    "bank holiday"
+  ],
+  "GBP": [
+    "mpc",
+    "interest",
+    "gdp",
+    "bank holiday"
+  ],
+  "JPY": [
+    "monetary policy statement",
+    "interest",
+    "bank holiday"
+  ],
+  "NZD": [
+    "gdt",
+    "interest",
+    "rbnz rate statement",
+    "gdp",
+    "employment change",
+    "bank holiday"
+  ],
+  "USD": [
+    "fomc statement",
+    "non-farm",
+    "powell",
+    "core cpi",
+    "bank holiday",
+    "biden"
+  ]
+}

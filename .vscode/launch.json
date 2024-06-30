@@ -1,0 +1,26 @@
+{
+    "configurations": [
+        {
+            "name": "Python Debugger: Python File",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${file}"
+        },
+        {
+            "name": "Python Run Main Debug",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "run.py",
+            "args": ["--impact-classes=yellow,orange,gray", "--currencies=USD", "--time-period=this month"]
+        },
+        {
+            "name": "Python Run Main Async Debug",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "run_async.py",
+            "args": ["--impact-classes=orange,red,gray", "--time-period=last week", "--output-folder=./data_files", "--nnfx"],
+            //"argss": ["--impact-classes=yellow,orange,gray", "--currencies=NZD", "--time-period=yesterday", "--output-folder=./data_files", "--nnfx"]
+        }
+
+    ]
+}

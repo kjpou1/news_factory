@@ -1,0 +1,1 @@
+BASE_URL_KEY = 'BASE_URL'

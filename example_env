@@ -1,0 +1,5 @@
+BASE_URL = 'https://www.forexfactory.com'
+IMPACT_FILTERS = 'yellow,orange,red,gray'
+CURRENCY_FILTERS = 'AUD,CAD,CHF,EUR,GBP,JPY,NZD,USD'
+NNFX_FILTERS = './resources/nnfx_filters.json'
+CALENDAR_TEMPLATE = './resources/calendar_template.html'
