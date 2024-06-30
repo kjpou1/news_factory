@@ -17,6 +17,7 @@ Options are also available to filter by [No Nonsense Forex](https://nononsensefo
     - [Shell Script Examples](#shell-script-examples)
     - [Running the Shell Script](#running-the-shell-script)
   - [License](#license)
+  - [Disclaimer](#disclaimer)
 
 ## Installation
 
@@ -168,3 +169,12 @@ To run the script without clearing the directory, this will overwrite the files 
 ## License
 
 This project is licensed under the MIT License. See the `LICENSE` file for details.
+
+
+## Disclaimer
+
+This project uses web scraping to retrieve data from a commercial website. Please be aware of the following:
+
+* Respect the Website's Terms of Service: Ensure that your usage of this tool complies with the websites terms of service. Frequent scraping can put undue load on their servers.
+* Responsible Usage: Use this tool responsibly to avoid disrupting the services provided by Forex Factory.
+* Legal Considerations: Be aware of the legal implications of web scraping. This tool is provided for personal use and educational purposes only.
