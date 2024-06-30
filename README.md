@@ -76,6 +76,13 @@ To retrieve and process data for today and save it in the specified output folde
 python run_async.py --impact-classes orange,red,gray --time-period 'today' --nnfx --output-folder '/path/to/output/folder'
 ```
 
+To retrieve and process data `this month` only for `USD` and save it in the specified output folder:
+
+```bash
+python run_async.py --impact-classes orange,red,gray --currencies USD --time-period 'This Month' --nnfx --output-folder '/path/to/output/folder'
+```
+
+
 To use a custom NNFX filters file and a custom calendar template:
 
 ```bash
