@@ -109,11 +109,11 @@ The configuration settings are managed through environment variables and can be 
 Example .env file:
 
 ``` 
-BASE_URL=https://www.forexfactory.com
-CURRENCY_FILTERS=AUD,CAD,CHF,EUR,GBP,JPY,NZD,USD
-IMPACT_FILTERS=yellow,orange,red,gray
-NNFX_FILTERS=nnfx_filters.json
-CALENDAR_TEMPLATE=calendar_template.html
+BASE_URL = 'https://www.forexfactory.com'
+IMPACT_FILTERS = 'yellow,orange,red,gray'
+CURRENCY_FILTERS = 'AUD,CAD,CHF,EUR,GBP,JPY,NZD,USD'
+NNFX_FILTERS = './resources/nnfx_filters.json'
+CALENDAR_TEMPLATE = './resources/calendar_template.html'
 ```
 
 > [!NOTE]
