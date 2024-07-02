@@ -24,7 +24,7 @@ Options are also available to filter by [No Nonsense Forex](https://nononsensefo
 1. **Clone the repository:**
 
     ```bash
-    git clone https://github.com/yourusername/news-factory.git
+    git clone https://github.com/kjpou1/news_factory.git
     cd news-factory
     ```
 
