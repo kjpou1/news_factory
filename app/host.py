@@ -27,6 +27,10 @@ class Host:
         self.config.set_time_period(self.args.time_period)
         self.config.set_nnfx(self.args.nnfx)
 
+        # Set custom dates if specified
+        if self.args.time_period == TimePeriod.CUSTOM:
+            self.config.set_custom_dates(self.args.start_date, self.args.end_date)
+
         self.ff_scraper = ForexFactoryScraperService(url=self.config.get_url())
         self.logger = logging.getLogger(__name__)
 

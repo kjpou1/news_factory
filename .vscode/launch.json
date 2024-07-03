@@ -18,8 +18,7 @@
             "type": "debugpy",
             "request": "launch",
             "program": "run_async.py",
-            "args": ["--impact-classes=orange,red,gray", "--time-period=last week", "--output-folder=./data_files", "--nnfx"],
-            //"argss": ["--impact-classes=yellow,orange,gray", "--currencies=NZD", "--time-period=yesterday", "--output-folder=./data_files", "--nnfx"]
+            "args": ["--impact-classes=orange,red,gray", "--time-period=custom", "--output-folder=./data_files", "--nnfx", "--start-date=2024-01-01", "--end-date=2024-01-03"],
         }
 
     ]

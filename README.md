@@ -68,11 +68,13 @@ To run the library, use the provided `run_async.py` script with appropriate comm
 
 - `--impact-classes, -i`: Comma-separated list of impact classes (yellow, orange, red, gray)
 - `--currencies, -c`: Comma-separated list of currencies (AUD, CAD, CHF, EUR, GBP, JPY, NZD, USD)
-- `--time-period, -t`: Time period (Tomorrow, Next Week, Next Month, Today, This Week, This Month, Yesterday, Last Week, Last Month)
+- `--time-period, -t`: Time period (Tomorrow, Next Week, Next Month, Today, This Week, This Month, Yesterday, Last Week, Last Month, Custom)
 - `--output-folder, -o`: Folder where the output files will be saved (default: current directory)
 - `--nnfx, -n`: Boolean switch that will filter event data specific to nnfx method
 - `--custom-nnfx-filters, -f`: Path to a custom NNFX filters JSON file
 - `--custom-calendar-template, -m`: Path to a custom calendar template file
+- `--start-date`: Start date for the custom time period (YYYY-MM-DD)
+- `--end-date`: End date for the custom time period (YYYY-MM-DD)
 
 > [!NOTE]
 > `--nnfx` switch follows the [No Nonsense Forex](https://nononsenseforex.com/forex-basics/forex-news-trading/) news events filtering.
@@ -101,7 +103,11 @@ To use a custom NNFX filters file and a custom calendar template:
 python run_async.py --impact-classes orange,red,gray --time-period 'this week' --nnfx --output-folder '/path/to/output/folder' --custom-nnfx-filters 'path/to/nnfx_filters.json' --custom-calendar-template 'path/to/calendar_template.html'
 ```
 
+To retrieve and process data for a custom date range:
 
+```bash
+python run_async.py --impact-classes orange,red,gray --time-period 'custom' --start-date '2024-06-01' --end-date '2024-06-11' --nnfx --output-folder '/path/to/output/folder'
+```
 
 ## Configuration
 

@@ -1,3 +1,4 @@
+from datetime import datetime
 import json
 import logging
 import os
@@ -43,6 +44,8 @@ class Config(metaclass=SingletonMeta):
             curr.strip()) for curr in Config.get(
             Config.CURRENCY_FILTERS_KEY, '').split(',')] if Config.get(Config.CURRENCY_FILTERS_KEY) else []
         self.time_period = TimePeriod.TODAY
+        self.custom_start_date = None
+        self.custom_end_date = None
         # Load NNFX filters from resource file or custom file if specified
         self.nnfx_filters_dict = self.load_nnfx_filters()
         self.logger = logging.getLogger(__name__)
@@ -70,13 +73,30 @@ class Config(metaclass=SingletonMeta):
             else:
                 raise ValueError(f"Invalid TimePeriod value: '{time_period}'")
 
+    def set_custom_dates(self, start_date, end_date):
+        self.custom_start_date = start_date
+        self.custom_end_date = end_date
+
     def get_href(self):
         return TimePeriod.to_href(self.time_period)
 
     def get_url(self):
-        url = Utils.create_full_url(Config.get(
-            Config.BASE_URL_KEY), self.get_href())
-        return url
+        if self.time_period == TimePeriod.CUSTOM and self.custom_start_date and self.custom_end_date:
+            start_date_formatted = self._format_date(self.custom_start_date)
+            end_date_formatted = self._format_date(self.custom_end_date)
+            href = f'{self.get_href()}{start_date_formatted}-{end_date_formatted}'
+            url = Utils.create_full_url(Config.get(Config.BASE_URL_KEY), href)
+            return url
+        else:
+            url = Utils.create_full_url(Config.get(Config.BASE_URL_KEY), self.get_href())
+            return url
+
+    @staticmethod
+    def _format_date(date_str):
+        # Convert the date string to the required format (e.g., jun01.2024)
+        date_obj = datetime.strptime(date_str, '%Y-%m-%d')
+        formatted_date = date_obj.strftime('%b%d.%Y').lower()
+        return formatted_date
 
     def get_impact_filter_list(self):
         impact_filters = self.impact_filters

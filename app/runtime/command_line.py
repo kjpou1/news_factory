@@ -29,7 +29,7 @@ class CommandLine:
         parser.add_argument(
             '--time-period',
             type=str,
-            help='Time period (Tomorrow, Next Week, Next Month, Today, This Week, This Month, Yesterday, Last Week, Last Month)',
+            help='Time period (Tomorrow, Next Week, Next Month, Today, This Week, This Month, Yesterday, Last Week, Last Month, Custom)',
             default=''
         )
 
@@ -56,6 +56,18 @@ class CommandLine:
             '--custom-calendar-template',
             type=str,
             help='Path to a custom calendar template file'
+        )
+
+        parser.add_argument(
+            '--start-date',
+            type=str,
+            help='Start date for the custom time period (YYYY-MM-DD)'
+        )
+
+        parser.add_argument(
+            '--end-date',
+            type=str,
+            help='End date for the custom time period (YYYY-MM-DD)'
         )
 
         args = parser.parse_args()
@@ -91,6 +103,16 @@ class CommandLine:
         # Process custom calendar template file
         custom_calendar_template = args.custom_calendar_template
 
+        # Process start and end dates for custom time period
+        start_date = args.start_date
+        end_date = args.end_date
+
+        if time_period == TimePeriod.CUSTOM:
+            if not start_date or not end_date:
+                raise ValueError("Both start-date and end-date must be provided for custom time period")
+            start_date = TimePeriod.validate_date_format(start_date)
+            end_date = TimePeriod.validate_date_format(end_date)
+
         return CommandLineArgs(
             impact_classes=impact_classes,
             currencies=currencies,
@@ -98,5 +120,7 @@ class CommandLine:
             output_folder=output_folder,
             nnfx=nnfx,
             custom_nnfx_filters=custom_nnfx_filters,
-            custom_calendar_template=custom_calendar_template
+            custom_calendar_template=custom_calendar_template,
+            start_date=start_date,
+            end_date=end_date
         )

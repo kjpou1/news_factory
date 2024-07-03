@@ -18,6 +18,9 @@ class ForexFactoryScraperService:
         return asyncio.run(self.get_calendar_async())
 
     async def get_calendar_async(self):
+        return await self._fetch_calendar(self.url)
+
+    async def _fetch_calendar(self, url):
         days_array = []
         try:
             async with async_playwright() as p:
@@ -27,7 +30,7 @@ class ForexFactoryScraperService:
                 page = await context.new_page()
 
                 await page.set_extra_http_headers(Config.EXTRA_HTTP_HEADERS)
-                await page.goto(self.url, wait_until="domcontentloaded")
+                await page.goto(url, wait_until="domcontentloaded")
 
                 # Add your scraping logic here using selectors or other methods
                 try:
