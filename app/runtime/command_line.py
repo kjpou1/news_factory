@@ -13,47 +13,47 @@ class CommandLine:
             description='Run the application with specified impact classes, currencies, time period, and output folder.')
 
         parser.add_argument(
-            '--impact-classes',
+            '--impact-classes', '-i',
             type=str,
             help='Comma-separated list of impact classes (yellow, orange, red, gray)',
             default=''
         )
 
         parser.add_argument(
-            '--currencies',
+            '--currencies', '-c',
             type=str,
             help='Comma-separated list of currencies (AUD, CAD, CHF, EUR, GBP, JPY, NZD, USD)',
             default=''
         )
 
         parser.add_argument(
-            '--time-period',
+            '--time-period', '-t',
             type=str,
             help='Time period (Tomorrow, Next Week, Next Month, Today, This Week, This Month, Yesterday, Last Week, Last Month, Custom)',
             default=''
         )
 
         parser.add_argument(
-            '--output-folder',
+            '--output-folder', '-o',
             type=str,
             help='Folder where the output files will be saved',
             default=os.getcwd()
         )
 
         parser.add_argument(
-            '--nnfx',
+            '--nnfx', '-n',
             action='store_true',
             help='Boolean switch that will filter event data specific to nnfx method'
         )
 
         parser.add_argument(
-            '--custom-nnfx-filters',
+            '--custom-nnfx-filters', '-f',
             type=str,
             help='Path to a custom NNFX filters JSON file'
         )
 
         parser.add_argument(
-            '--custom-calendar-template',
+            '--custom-calendar-template', '-m',
             type=str,
             help='Path to a custom calendar template file'
         )

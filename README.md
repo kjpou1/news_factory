@@ -90,6 +90,10 @@ To retrieve and process data for today and save it in the specified output folde
 python run_async.py --impact-classes orange,red,gray --time-period 'today' --nnfx --output-folder '/path/to/output/folder'
 ```
 
+```bash
+python run_async.py -i orange,red,gray -t 'today' -n -o '/path/to/output/folder'
+```
+
 To retrieve and process data `this month` only for `USD` and save it in the specified output folder:
 
 ```bash
@@ -107,6 +111,10 @@ To retrieve and process data for a custom date range:
 
 ```bash
 python run_async.py --impact-classes orange,red,gray --time-period 'custom' --start-date '2024-06-01' --end-date '2024-06-11' --nnfx --output-folder '/path/to/output/folder'
+```
+
+```bash
+python run_async.py -i orange,red,gray -t 'custom' -o '/path/to/output/folder' --start-date '2024-06-01' --end-date '2024-06-11'
 ```
 
 ## Configuration
