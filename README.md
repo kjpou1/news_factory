@@ -4,6 +4,8 @@ This Python library retrieves calendar event data from Forex Factory for specifi
 
 Options are also available to filter by [No Nonsense Forex](https://nononsenseforex.com/forex-basics/forex-news-trading/) rules.
 
+See sister project [news_factory_server](https://github.com/kjpou1/news_factory_server) for serving an icalendar subscriptions.
+
 ## Table of Contents
 
 - [NEWS FACTORY](#news-factory)
