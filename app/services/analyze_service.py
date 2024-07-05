@@ -10,7 +10,8 @@ class AnalyzeService:
 
     SELECTED_FIELDS = [
         'meta_date', 'date', 'country', 'currency', 'impactClass',
-        'impactTitle', 'name', 'trimmedPrefixedName', 'dateline', 'forecast', 'previous'
+        'impactTitle', 'name', 'trimmedPrefixedName', 'dateline', 'forecast', 'previous',
+        'timeLabel', 'timeMasked'
     ]
 
     @staticmethod
