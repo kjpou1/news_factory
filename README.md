@@ -20,6 +20,11 @@ See sister project [news_factory_server](https://github.com/kjpou1/news_factory_
     - [Shell Script Examples](#shell-script-examples)
     - [Shell Script Output](#shell-script-output)
     - [Running the Shell Script](#running-the-shell-script)
+  - [Task Scheduler](#task-scheduler)
+    - [Task Definition (`tasks.json`)](#task-definition-tasksjson)
+    - [Schedule Definition (`schedules.json`)](#schedule-definition-schedulesjson)
+    - [Running the Scheduler](#running-the-scheduler)
+    - [Logging and Environment Info](#logging-and-environment-info)
   - [License](#license)
   - [Disclaimer](#disclaimer)
 
@@ -228,6 +233,101 @@ To run the script without clearing the directory, this will overwrite the files 
 ```bash
 ./daily_run.sh --output-folder "/path/to/output/folder"
 ```
+
+Based on your latest updates, here are the additions and modifications for the README to incorporate the recent changes to the task scheduler and configuration of tasks.
+
+## Task Scheduler
+
+This library now supports defining tasks and schedules dynamically using a JSON-based configuration file. This is managed using APScheduler to automatically schedule tasks based on time periods like 'today', 'this week', or 'this month'.
+
+The tasks and schedules are defined in separate JSON files:
+- `tasks.json`: Defines the task configuration, including impact classes, currencies, time period, and other optional settings.
+- `schedules.json`: Defines the cron-based scheduling for each task.
+
+### Task Definition (`tasks.json`)
+
+The `tasks.json` file contains the configuration for each task. Example structure:
+
+```json
+{
+  "tasks": [
+    {
+      "task_name": "Today Task",
+      "impact_classes": "orange,red,gray",
+      "currencies": "AUD,CAD,CHF,EUR,GBP,JPY,NZD,USD",
+      "time_period": "TODAY",
+      "output_folder": "./data_files",
+      "nnfx": true,
+      "custom_nnfx_filters": null,
+      "custom_calendar_template": null,
+      "start_date": null,
+      "end_date": null
+    },
+    {
+      "task_name": "This Week Task",
+      "impact_classes": "orange,red,gray",
+      "currencies": "AUD,CAD,CHF,EUR,GBP,JPY,NZD,USD",
+      "time_period": "THIS_WEEK",
+      "output_folder": "./data_files",
+      "nnfx": true,
+      "custom_nnfx_filters": null,
+      "custom_calendar_template": null,
+      "start_date": null,
+      "end_date": null
+    }
+  ]
+}
+```
+
+### Schedule Definition (`schedules.json`)
+
+The `schedules.json` file contains the cron-based schedule for each task. Example structure:
+
+```json
+{
+  "schedules": [
+    {
+      "task_name": "Today Task",
+      "cron_schedule": {
+        "hour": 9,
+        "minute": 30
+      }
+    },
+    {
+      "task_name": "This Week Task",
+      "cron_schedule": {
+        "hour": 10,
+        "minute": 0
+      }
+    }
+  ]
+}
+```
+
+### Running the Scheduler
+
+To start the scheduler, run the following command:
+
+```bash
+python scheduler_script.py
+```
+
+This will:
+- Load tasks and schedules from their respective JSON files.
+- Run each task according to its schedule.
+- Ensure tasks are executed one at a time, completing the previous one before starting the next.
+
+The logs will provide detailed information about the tasks being executed and their progress.
+
+### Logging and Environment Info
+
+The scheduler will log system environment variables and information such as:
+- UTC and local time when the scheduler starts.
+- Relevant environment variables (like `OUTPUT_FOLDER`, `IMPACT_FILTERS`, etc.).
+
+The logs will also capture the execution flow for each task and any potential issues during the task execution.
+
+Would you like to proceed with incorporating this new section into your README?
 
 ## License
 
