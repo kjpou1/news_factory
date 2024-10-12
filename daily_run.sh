@@ -22,10 +22,29 @@ if [ "$CLEAR_DIR" == "yes" ]; then
   rm -rf "$OUTPUT_FOLDER"/*
 fi
 
+# Activate the virtual environment
 source ./.venv/bin/activate
 
-python ./run_async.py --impact-classes orange,red,gray --time-period 'today' --nnfx --output-folder "$OUTPUT_FOLDER"
-python ./run_async.py --impact-classes orange,red,gray --time-period 'this week' --nnfx --output-folder "$OUTPUT_FOLDER"
-python ./run_async.py --impact-classes orange,red,gray --time-period 'this month' --nnfx --output-folder "$OUTPUT_FOLDER"
+# Log file for storing script output
+LOG_FILE="daily_run.log"
 
+# Function to run Python script and log output
+run_task() {
+    local time_period=$1
+    echo "Running for time period: $time_period" | tee -a "$LOG_FILE"
+    python ./run_async.py --impact-classes orange,red,gray --time-period "$time_period" --nnfx --output-folder "$OUTPUT_FOLDER" >> "$LOG_FILE" 2>&1
+    
+    # Check for errors
+    if [ $? -ne 0 ]; then
+        echo "Error running task for $time_period. Check $LOG_FILE for details." | tee -a "$LOG_FILE"
+        exit 1
+    fi
+}
+
+# Run the tasks for different time periods
+run_task "today"
+run_task "this week"
+run_task "this month"
+
+# Deactivate the virtual environment
 deactivate
