@@ -1,0 +1,32 @@
+{
+    "tasks": [
+      {
+        "task_name": "Today Task",
+        "impact_classes": "orange,red,gray",
+        "currencies": "AUD,CAD,CHF,EUR,GBP,JPY,NZD,USD",
+        "time_period": "TODAY",
+        "output_folder": null,
+        "nnfx": true,
+        "custom_nnfx_filters": null
+      },
+      {
+        "task_name": "This Week Task",
+        "impact_classes": "orange,red,gray",
+        "currencies": "AUD,CAD,CHF,EUR,GBP,JPY,NZD,USD",
+        "time_period": "THIS_WEEK",
+        "output_folder": null,
+        "nnfx": true,
+        "custom_nnfx_filters": null
+      },
+      {
+        "task_name": "This Month Task",
+        "impact_classes": "orange,red,gray",
+        "currencies": "AUD,CAD,CHF,EUR,GBP,JPY,NZD,USD",
+        "time_period": "THIS_MONTH",
+        "output_folder": null,
+        "nnfx": true,
+        "custom_nnfx_filters": null
+      }
+    ]
+  }
+  
