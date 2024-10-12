@@ -54,10 +54,10 @@ class Host:
         days_array = await self.ff_scraper.get_calendar_async()
 
         # Write the raw calendar data to a JSON file
-        days_output_json = f'calendar_data_{
-            TimePeriod.to_file_name_ending(self.config.time_period)}.json'
-        days_output_json = os.path.join(
-            self.args.output_folder, days_output_json)
+        days_output_json = (
+            f'calendar_data_{TimePeriod.to_file_name_ending(self.config.time_period)}.json'
+        )
+        days_output_json = os.path.join(self.args.output_folder, days_output_json)
         await OutputService.write_json_to_file_async(days_array, days_output_json)
         self.logger.info("Calendar data written to file: %s", days_output_json)
 
@@ -73,41 +73,24 @@ class Host:
         for key, df in analyzed_data.items():
             if df is not None:
                 # Write analyzed data to a JSON file
-                output_file_json = f'calendar_data_{
-                    TimePeriod.to_file_name_ending(self.config.time_period)}_{key}.json'
-                output_path_json = os.path.join(
-                    self.args.output_folder, output_file_json)
+                output_file_json = (
+                    f'calendar_data_{TimePeriod.to_file_name_ending(self.config.time_period)}_{key}.json'
+                )
+                output_path_json = os.path.join(self.args.output_folder, output_file_json)
                 await OutputService.write_dataframe_to_json_async(df, output_path_json)
                 json_output_count += 1
 
                 # Write analyzed data to an HTML file
-                output_file_html = f'calendar_data_{
-                    TimePeriod.to_file_name_ending(self.config.time_period)}_{key}.html'
-                output_path_html = os.path.join(
-                    self.args.output_folder, output_file_html)
-                html_result = await ReportService.write_html_report_from_dataframe_async(df, output_path_html, repeat_date=False, report_name=f"{
-                    TimePeriod.to_file_name_ending(self.config.time_period)} {key} Data")
+                output_file_html = (
+                    f'calendar_data_{TimePeriod.to_file_name_ending(self.config.time_period)}_{key}.html'
+                )
+                output_path_html = os.path.join(self.args.output_folder, output_file_html)
+                html_result = await ReportService.write_html_report_from_dataframe_async(
+                    df, output_path_html, repeat_date=False, 
+                    report_name=f"{TimePeriod.to_file_name_ending(self.config.time_period)} {key} Data"
+                )
                 html_output_count += 1 if html_result == 0 else 0
 
         # Print a summary of the outputs
         self.logger.info("Summary: %d JSON files written.", json_output_count)
         self.logger.info("Summary: %d HTML files written.", html_output_count)
-
-# if __name__ == '__main__':
-#     # Setup logging configuration
-#     logging.basicConfig(
-#         level=logging.INFO,
-#         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-#     )
-
-#     # Example usage, adjust how args are passed in your actual implementation
-#     args = CommandLineArgs(
-#         impact_classes=[],
-#         currencies=[],
-#         time_period=TimePeriod.TODAY,
-#         output_folder='.',
-#         nnfx=False,
-#         custom_nnfx_filters=None
-#     )
-#     host = Host(args)
-#     host.run()
