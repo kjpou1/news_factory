@@ -16,7 +16,9 @@ See sister project [news_factory_server](https://github.com/kjpou1/news_factory_
     - [Examples](#examples)
   - [Configuration](#configuration)
   - [Shell Script](#shell-script)
+    - [Shell Script Logging](#shell-script-logging)
     - [Shell Script Examples](#shell-script-examples)
+    - [Shell Script Output](#shell-script-output)
     - [Running the Shell Script](#running-the-shell-script)
   - [License](#license)
   - [Disclaimer](#disclaimer)
@@ -137,11 +139,31 @@ CALENDAR_TEMPLATE = './resources/calendar_template.html'
 
 ## Shell Script
 
-A shell script daily_run.sh is provided to automate the execution of the script for different time periods.
+A shell script `daily_run.sh` is provided to automate the execution of the script for different time periods.
+
+### Shell Script Logging
+
+The `daily_run.sh` script logs all output to a file called `daily_run.log`. If any errors occur during the execution of the script, the log file will contain detailed information. The script will also halt further execution if any task fails.
+
+**Example usage**:
+
+```bash
+./daily_run.sh --output-folder "/path/to/output/folder" --clear
+```
+
+**Log file**:
+
+Logs are stored in the `daily_run.log` file. You can inspect the log for details on the execution:
+
+```bash
+cat daily_run.log
+```
+
+If an error occurs during execution, it will be recorded in the log, and the script will stop further tasks from running.
 
 ### Shell Script Examples
 
-Example `daily_run.sh`
+Example `daily_run.sh`:
 
 ```bash
 #!/bin/bash
@@ -175,7 +197,22 @@ python ./run_async.py --impact-classes orange,red,gray --time-period 'this week'
 python ./run_async.py --impact-classes orange,red,gray --time-period 'this month' --nnfx --output-folder "$OUTPUT_FOLDER"
 
 deactivate
+```
 
+### Shell Script Output
+
+The `--output-folder` argument is required for the shell script. This specifies the folder where output files will be saved. If the `--clear` flag is provided, the script will delete all files from the output folder before generating new reports.
+
+**Example usage**:
+
+```bash
+./daily_run.sh --output-folder "/path/to/output/folder" --clear
+```
+
+Without the `--clear` flag, the script will overwrite existing files but will not clear the folder before running:
+
+```bash
+./daily_run.sh --output-folder "/path/to/output/folder"
 ```
 
 ### Running the Shell Script
