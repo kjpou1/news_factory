@@ -1,5 +1,6 @@
 import json
 import asyncio
+import sys
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 import logging
 import os
@@ -249,7 +250,46 @@ class Scheduler:
             # Log message when the scheduler is gracefully shutting down
             logger.info("Shutting down the scheduler...")
 
+
+def check_directory_permissions(directory):
+    """
+    Check read and write permissions for the given directory.
+    """
+    if not os.path.exists(directory):
+        logger.error(f"Directory {directory} does not exist.")
+        return False
+
+    if not os.access(directory, os.R_OK):
+        logger.error(f"Read permission denied for {directory}")
+        return False
+
+    if not os.access(directory, os.W_OK):
+        logger.error(f"Write permission denied for {directory}")
+        return False
+
+    logger.info(f"Directory {directory} is accessible with read and write permissions.")
+    return True
+
+def check_permissions_on_startup():
+    """
+    Check permissions for directories at startup.
+    """
+    
+    logger.info(os.getenv("OUTPUT_FOLDER"))
+    directories_to_check = [
+        os.getenv("OUTPUT_FOLDER", "/usr/src/app/data_files")
+    ]
+
+    for directory in directories_to_check:
+        if not check_directory_permissions(directory):
+            logger.error(f"Permission check failed for {directory}. Exiting.")
+            sys.exit(1)
+            
 if __name__ == '__main__':
+
+    # Check permissions on startup
+    check_permissions_on_startup()
+        
     # Initialize the scheduler
     scheduler = Scheduler()
 

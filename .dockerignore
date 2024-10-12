@@ -1,0 +1,129 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Packages
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+parts/
+bin/
+var/
+sdist/
+develop-eggs/
+.installed.cfg
+*.egg-info
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# mypy
+.mypy_cache/
+
+# Pyre
+.pyre/
+
+# pylint
+.pylint.d/
+
+# Bandit
+.bandit/
+
+# Pytest
+.pytest_cache/
+
+# Sphinx documentation
+docs/_build/
+
+# PyCharm
+.idea/
+
+# VS Code
+.vscode/
+
+# Sublime Text
+.sublime-project
+.sublime-workspace
+
+# Thumbnails
+._*
+
+# Temporary files and folders
+*.swp
+*.swo
+*.tmp
+*~
+
+# MacOS-specific files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows-specific files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Other system files
+.fseventsd
+.xcodeproj/
+*.lock
+*.log
+
+# dotenv files (you'll load this externally using docker-compose or docker run)
+.env
+
+# Local and production environments
+venv/
+.venv/
+env/
+ENV/
+venv.bak/
+venv/
+
+# CI/CD
+.github/
+.gitlab-ci.yml
+
+# Git
+.git/
+.gitignore
+
+# Ignore SQLite database files
+*.db
+
+# Ignore large data files or models (optional, change based on your use case)
+data/*.csv  # Example of excluding large files but keeping the data directory
+
+# Python wheels
+*.whl
+
+# Hidden files (optional)
+.*

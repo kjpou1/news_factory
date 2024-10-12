@@ -1,0 +1,18 @@
+version: '3'
+services:
+  news_factory:
+    build: .
+    container_name: news_factory_container
+    image: news_factory
+    volumes:
+      - ./data:/usr/src/app/data
+      - ./resources:/usr/src/app/resources
+      - /home/kenneth/NetworkDrives/qnap-nas/Application/Data/news_factory:/app/data   
+      - ./app/data/tasks.json:/usr/src/app/app/data/tasks.json  
+      - ./app/data/schedules.json:/usr/src/app/app/data/schedules.json   
+    env_file:
+      - .env         
+    environment:
+      - OUTPUT_FOLDER=/app/data
+    command: ["python", "scheduler_script.py"]
+    restart: unless-stopped 

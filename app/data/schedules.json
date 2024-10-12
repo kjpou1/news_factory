@@ -3,24 +3,24 @@
       {
         "task_name": "Today Task",
         "cron_schedule": {
-          "hour": 9,
-          "minute": 24
+          "hour": 2,
+          "minute": 0
         }
       },
       {
         "task_name": "This Week Task",
         "cron_schedule": {
           "day_of_week": "/*mon",
-          "hour": 9,
-          "minute": 24
+          "hour": 2,
+          "minute": 0
         }
       },
       {
         "task_name": "This Month Task",
         "cron_schedule": {
           "day": "/*1",
-          "hour": 9,
-          "minute": 24
+          "hour": 2,
+          "minute": 0
         }
       }
     ]
