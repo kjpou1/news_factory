@@ -294,15 +294,21 @@ The `schedules.json` file contains the cron-based schedule for each task. Exampl
       }
     },
     {
-      "task_name": "This Week Task",
+      "task_name": "This Month Task",
       "cron_schedule": {
-        "hour": 10,
-        "minute": 0
+        "day": "/*1",  /* This day field is commented out and will be ignored */
+        "hour": 9,
+        "minute": 24
       }
     }
   ]
 }
 ```
+
+> **Special Note:**
+> - If a cron field's **value** is prefixed with `/*` (e.g., `"/*1"`), that field will be ignored during schedule processing.
+> - This allows you to temporarily disable certain cron fields without removing them from the configuration file.
+> - For example, in the above `"This Month Task"`, the `"day": "/*1"` field is ignored, so only the `hour` and `minute` fields will be considered when scheduling.
 
 ### Running the Scheduler
 
