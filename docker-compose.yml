@@ -1,4 +1,3 @@
-version: '3'
 services:
   news_factory:
     build: .
@@ -7,7 +6,8 @@ services:
     volumes:
       - ./data:/usr/src/app/data
       - ./resources:/usr/src/app/resources
-      - /home/kenneth/NetworkDrives/qnap-nas/Application/Data/news_factory:/app/data   
+      #- /home/kenneth/NetworkDrives/qnap-nas/Application/Data/news_factory:/app/data
+      - /home/kenneth/Public/data/calendar/forex_factory:/app/data   
       - ./app/data/tasks.json:/usr/src/app/app/data/tasks.json  
       - ./app/data/schedules.json:/usr/src/app/app/data/schedules.json   
     env_file:

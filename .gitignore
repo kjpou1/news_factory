@@ -139,3 +139,6 @@ test_*
 # generated files
 data_files
 .DS_Store
+
+# calendars
+hic_svnt_calendars

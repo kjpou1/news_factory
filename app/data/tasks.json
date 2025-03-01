@@ -26,6 +26,15 @@
         "output_folder": null,
         "nnfx": true,
         "custom_nnfx_filters": null
+      },
+      {
+        "task_name": "Next Month Task",
+        "impact_classes": "orange,red,gray",
+        "currencies": "AUD,CAD,CHF,EUR,GBP,JPY,NZD,USD",
+        "time_period": "NEXT_MONTH",
+        "output_folder": null,
+        "nnfx": true,
+        "custom_nnfx_filters": null
       }
     ]
   }
