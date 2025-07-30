@@ -18,7 +18,7 @@
             "type": "debugpy",
             "request": "launch",
             "program": "run_async.py",
-            "args": ["--impact-classes=orange,red,gray", "--time-period=today", "--output-folder=./data_files", "--nnfx", "--start-date=2024-01-01", "--end-date=2024-01-03"],
+            "args": ["--impact-classes=orange,red,gray", "--time-period=custom", "--output-folder=./data_files", "--nnfx", "--start-date=2025-01-01", "--end-date=2025-01-03"],
         },
         {
             "name": "Python Debugger Scheduler",

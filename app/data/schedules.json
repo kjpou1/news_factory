@@ -24,6 +24,14 @@
         }
       },
       {
+        "task_name": "Last Month Task",
+        "cron_schedule": {
+          "day": "/*1",
+          "hour": 2,
+          "minute": 0
+        }
+      },
+      {
         "task_name": "Next Month Task",
         "cron_schedule": {
           "day": "/*1",
@@ -31,6 +39,7 @@
           "minute": 0
         }
       }
+
     ]
 }
   

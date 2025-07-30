@@ -1,11 +1,12 @@
-import json
 import asyncio
-import sys
-from apscheduler.schedulers.asyncio import AsyncIOScheduler
+import json
 import logging
 import os
+import sys
 from datetime import datetime
+
 import pytz  # Optional, if you need timezone-aware dates.
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 # Import your existing classes
 from app.host import Host
@@ -18,8 +19,11 @@ from app.models.time_period import TimePeriod
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+
 class Scheduler:
-    def __init__(self, tasks_file='app/data/tasks.json', schedule_file='app/data/schedules.json'):
+    def __init__(
+        self, tasks_file="app/data/tasks.json", schedule_file="app/data/schedules.json"
+    ):
         """
         Initialize the scheduler with paths to task and schedule configuration files.
 
@@ -27,10 +31,10 @@ class Scheduler:
         - tasks_file: Path to the JSON file containing task configurations.
         - schedule_file: Path to the JSON file containing schedule configurations.
         """
-        
+
         # Log environment information at initialization
-        self.log_environment_info()        
-        
+        self.log_environment_info()
+
         # Initialize the paths for tasks and schedules JSON files
         self.tasks_file = tasks_file
         self.schedule_file = schedule_file
@@ -41,9 +45,9 @@ class Scheduler:
         # Load tasks and schedules from their respective JSON files
         self.tasks = self.load_tasks_from_json(self.tasks_file)
         self.schedules = self.load_schedule_from_json(self.schedule_file)
-        
+
         # Initialize the async lock for controlling task execution order
-        self.task_lock = asyncio.Lock()        
+        self.task_lock = asyncio.Lock()
 
     def log_environment_info(self):
         """
@@ -57,24 +61,28 @@ class Scheduler:
         local_timezone = local_now.tzinfo
 
         # Log environment info
-        logger.info(f"Scheduler started at UTC time: {utc_now.strftime('%Y-%m-%d %H:%M:%S %Z')}")
-        logger.info(f"Current local time: {local_now.strftime('%Y-%m-%d %H:%M:%S %Z')} (Timezone: {local_timezone})")
-        
+        logger.info(
+            f"Scheduler started at UTC time: {utc_now.strftime('%Y-%m-%d %H:%M:%S %Z')}"
+        )
+        logger.info(
+            f"Current local time: {local_now.strftime('%Y-%m-%d %H:%M:%S %Z')} (Timezone: {local_timezone})"
+        )
+
         # Log only relevant environment variables
-        relevant_env_vars = { 
-            'OUTPUT_FOLDER': os.getenv('OUTPUT_FOLDER'),
-            'BASE_URL': os.getenv('BASE_URL'),
-            'IMPACT_FILTERS': os.getenv('IMPACT_FILTERS'),
-            'CURRENCY_FILTERS': os.getenv('CURRENCY_FILTERS'),
-            'VIRTUAL_ENV': os.getenv('VIRTUAL_ENV'),
-            'VIRTUAL_ENV_PROMPT': os.getenv('VIRTUAL_ENV_PROMPT'),
-            'NNFX_FILTERS': os.getenv('NNFX_FILTERS'),
-            'CALENDAR_TEMPLATE': os.getenv('CALENDAR_TEMPLATE'),
-            'PATH': os.getenv('PATH')
+        relevant_env_vars = {
+            "OUTPUT_FOLDER": os.getenv("OUTPUT_FOLDER"),
+            "BASE_URL": os.getenv("BASE_URL"),
+            "IMPACT_FILTERS": os.getenv("IMPACT_FILTERS"),
+            "CURRENCY_FILTERS": os.getenv("CURRENCY_FILTERS"),
+            "VIRTUAL_ENV": os.getenv("VIRTUAL_ENV"),
+            "VIRTUAL_ENV_PROMPT": os.getenv("VIRTUAL_ENV_PROMPT"),
+            "NNFX_FILTERS": os.getenv("NNFX_FILTERS"),
+            "CALENDAR_TEMPLATE": os.getenv("CALENDAR_TEMPLATE"),
+            "PATH": os.getenv("PATH"),
         }
-        
+
         logger.info(f"Relevant environment variables: {relevant_env_vars}")
-    
+
     def load_tasks_from_json(self, task_file):
         """
         Load tasks from a JSON file using utf-8 encoding.
@@ -87,10 +95,10 @@ class Scheduler:
         """
         try:
             # Open the tasks.json file with utf-8 encoding
-            with open(task_file, 'r', encoding='utf-8') as f:
+            with open(task_file, "r", encoding="utf-8") as f:
                 task_data = json.load(f)
             # Return tasks in a dictionary where task names are the keys
-            return {task['task_name']: task for task in task_data['tasks']}
+            return {task["task_name"]: task for task in task_data["tasks"]}
         except Exception as e:
             # Log an error message if the tasks file cannot be loaded
             logger.error(f"Failed to load tasks from {task_file}: {e}")
@@ -112,20 +120,20 @@ class Scheduler:
         """
         try:
             # Open the schedules.json file with utf-8 encoding
-            with open(schedule_file, 'r', encoding='utf-8') as f:
+            with open(schedule_file, "r", encoding="utf-8") as f:
                 schedule_data = json.load(f)
-            
+
             # Iterate through each schedule to handle any "commented-out" cron fields
-            for schedule in schedule_data['schedules']:
-                cron_schedule = schedule['cron_schedule']
-                
+            for schedule in schedule_data["schedules"]:
+                cron_schedule = schedule["cron_schedule"]
+
                 # Check if any cron field is "commented out" with /*
                 # If so, the field is removed from the cron schedule, effectively ignoring it
                 for key, value in list(cron_schedule.items()):
-                    if isinstance(value, str) and value.startswith('/*'):
+                    if isinstance(value, str) and value.startswith("/*"):
                         del cron_schedule[key]  # Remove "commented out" lines
 
-            return schedule_data['schedules']
+            return schedule_data["schedules"]
         except Exception as e:
             # Log an error message if the schedule file cannot be loaded
             logger.error(f"Failed to load schedules from {schedule_file}: {e}")
@@ -147,47 +155,67 @@ class Scheduler:
                 time_period = TimePeriod.from_text(time_period.strip())
 
             if not time_period:
-                logger.error(f"Invalid time period: {task_config['time_period']}. Skipping task.")
+                logger.error(
+                    f"Invalid time period: {task_config['time_period']}. Skipping task."
+                )
                 return
+
+            start_date = task_config.get("start_date") or None
+            end_date = task_config.get("end_date") or None
 
             if time_period == TimePeriod.CUSTOM:
                 if not start_date or not end_date:
-                    raise ValueError("Both start-date and end-date must be provided for custom time period")
+                    raise ValueError(
+                        "Both start-date and end-date must be provided for custom time period"
+                    )
                 start_date = TimePeriod.validate_date_format(start_date)
                 end_date = TimePeriod.validate_date_format(end_date)
 
             # Use environment variable OUTPUT_FOLDER if output_folder is null in task config
-            output_folder = task_config.get("output_folder") or os.getenv("OUTPUT_FOLDER", './data_files')
+            output_folder = task_config.get("output_folder") or os.getenv(
+                "OUTPUT_FOLDER", "./data_files"
+            )
 
             # Log the usage of the default output folder if applicable
             if not task_config.get("output_folder"):
                 logger.info(f"Using default output folder: {output_folder}")
-                    
-            custom_nnfx_filters = task_config.get("custom_nnfx_filters") or None
-            custom_calendar_template = task_config.get("custom_calendar_template") or None  # Handle custom calendar template
-            start_date = task_config.get("start_date") or None  # Handle start date if provided
-            end_date = task_config.get("end_date") or None  # Handle end date if provided
 
-            impact_classes=task_config["impact_classes"]
-            
+            custom_nnfx_filters = task_config.get("custom_nnfx_filters") or None
+            custom_calendar_template = (
+                task_config.get("custom_calendar_template") or None
+            )  # Handle custom calendar template
+            start_date = (
+                task_config.get("start_date") or None
+            )  # Handle start date if provided
+            end_date = (
+                task_config.get("end_date") or None
+            )  # Handle end date if provided
+
+            impact_classes = task_config["impact_classes"]
+
             # Process impact classes
             if impact_classes:
-                impact_classes = [ImpactClass.from_text(
-                    ic.strip()) for ic in impact_classes.split(',')]
+                impact_classes = [
+                    ImpactClass.from_text(ic.strip())
+                    for ic in impact_classes.split(",")
+                ]
             else:
                 impact_classes = []
 
-            currencies=task_config["currencies"]
-            
+            currencies = task_config["currencies"]
+
             # Process currencies
             if currencies:
-                currencies = [Currencies.from_text(
-                    curr.strip()) for curr in currencies.split(',')]
+                currencies = [
+                    Currencies.from_text(curr.strip()) for curr in currencies.split(",")
+                ]
             else:
                 currencies = []
 
             # Log the start of task execution
-            logger.info(f"Starting task: {task_config['task_name']} with output_folder: {output_folder}")
+            logger.info(
+                f"Starting task: {task_config['task_name']} with output_folder: {output_folder}"
+            )
 
             # Construct command-line arguments dynamically from the task configuration
             args = CommandLineArgs(
@@ -199,7 +227,7 @@ class Scheduler:
                 custom_nnfx_filters=custom_nnfx_filters,
                 custom_calendar_template=custom_calendar_template,
                 start_date=start_date,
-                end_date=end_date
+                end_date=end_date,
             )
 
             # Create a Host object and execute the task asynchronously
@@ -214,18 +242,27 @@ class Scheduler:
         Schedule tasks based on the loaded schedules and tasks.
         """
         for schedule in self.schedules:
-            task_name = schedule['task_name']
-            cron_schedule = schedule['cron_schedule']
+            task_name = schedule["task_name"]
+            cron_schedule = schedule["cron_schedule"]
 
             # Log an error if the task name from the schedule doesn't exist in the tasks
             if task_name not in self.tasks:
-                logger.error(f"Task {task_name} not found in tasks.json. Skipping schedule.")
+                logger.error(
+                    f"Task {task_name} not found in tasks.json. Skipping schedule."
+                )
                 continue
 
             task_config = self.tasks[task_name]
 
             # Schedule the task properly to ensure it runs within an event loop
-            self.scheduler.add_job(self.run_async_task, 'cron', args=[task_config], **cron_schedule)
+            if not cron_schedule:
+                logger.error(
+                    f"Task {task_name} has no active cron fields after filtering. Skipping schedule."
+                )
+                continue
+            self.scheduler.add_job(
+                self.run_async_task, "cron", args=[task_config], **cron_schedule
+            )
             logger.info(f"Scheduled {task_name} with cron: {cron_schedule}")
 
     async def run_async_task(self, task_config):
@@ -233,7 +270,6 @@ class Scheduler:
         Asynchronously run the task in the event loop.
         """
         await self.run_task(task_config)
-    
 
     async def start_scheduler(self):
         """
@@ -270,26 +306,26 @@ def check_directory_permissions(directory):
     logger.info(f"Directory {directory} is accessible with read and write permissions.")
     return True
 
+
 def check_permissions_on_startup():
     """
     Check permissions for directories at startup.
     """
-    
+
     logger.info(os.getenv("OUTPUT_FOLDER"))
-    directories_to_check = [
-        os.getenv("OUTPUT_FOLDER", "/usr/src/app/data_files")
-    ]
+    directories_to_check = [os.getenv("OUTPUT_FOLDER", "/usr/src/app/data_files")]
 
     for directory in directories_to_check:
         if not check_directory_permissions(directory):
             logger.error(f"Permission check failed for {directory}. Exiting.")
             sys.exit(1)
-            
-if __name__ == '__main__':
+
+
+if __name__ == "__main__":
 
     # Check permissions on startup
     check_permissions_on_startup()
-        
+
     # Initialize the scheduler
     scheduler = Scheduler()
 
